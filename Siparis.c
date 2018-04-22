@@ -1,16 +1,15 @@
-#include <stdio.h>
 #include "Siparis.h"
 
 Siparis SNULL;
 
 Siparis new_Siparis(char * inputed[])
 {
-    Siparis sip;
-    sip.key    = inputed[1]; 
-    sip.isim   = inputed[2]; 
-    sip.malzeme= inputed[3]; 
-    sip.renk   = inputed[4];
-    return sip;
+    Siparis *sip;
+    sip->key    = atoi(inputed[1]); 
+    sip->isim   = inputed[2]; 
+    sip->malzeme= inputed[3]; 
+    sip->renk   = inputed[4];
+    return *sip;
 }
 
 int Siparis_key(Siparis sip) 

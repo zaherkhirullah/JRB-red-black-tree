@@ -134,7 +134,7 @@ int commandExecute(char * command[],char* inputed[]){
 			i++;
         }
          command_args[i] = NULL;
-         execProgram(command_args,background);		 
+         execProgram(command_args,background);
     }
     return 1;
 }
@@ -151,20 +151,20 @@ void execProgram(char **command, int background){
 			printf("Komut bulunamadı !");
 			kill(getpid(),SIGTERM);
 		}
-	 }
+	}
     if(pid < 0){ // Fork hatası
 	    printf("Fork hatası - Cocuk proses olusturulamadi !\n");
 		return;
-	 }
+	}
 	 if (background == 0){ // Background da çalışabilmesi için bekleme komutu.
 		 waitpid(pid,&status,0);
-	 }
+	}
      else{ // ebeveyn proses
      	 if( WIFEXITED(status))
 	    {
 	    	printf(" >[%d] retval: %d\n" , pid ,WEXITSTATUS(status));
 	    }   
-	 }	 
+	}	 
 }
 void IOProcess(char * command[], char* inputFile, char* outputFile, int control){
 	// Cat komutu için dup2 ve execvp fonksiyonları ile gerçeklenen dosya giriş çıkış işlemleri.

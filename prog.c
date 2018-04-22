@@ -42,26 +42,18 @@ int add_fun(char* inputed[])
     printf("Usage: add|sipKey|sipAd|sipMalezeme|sipRenk\n");
     return 0;
   }
-    Siparis  sip ;
-      sip.key    = atoi(inputed[1]); 
-      sip.isim   = inputed[2]; 
-      sip.malzeme= inputed[3]; 
-      sip.renk   = inputed[4];
+    Siparis *sip ;
+      sip->key    = atoi(inputed[1]); 
+      sip->isim   = inputed[2]; 
+      sip->malzeme= inputed[3]; 
+      sip->renk   = inputed[4];
+      printf("%d\n",sip->key);
 
-      // printf("sip.key = %d\n",sip.key);
-      // printf("sip.isim = %s\n",sip.isim);
-      // printf("sip.malzeme = %s\n",sip.malzeme);
-      // printf("sip.renk = %s\n",sip.renk);
-
-    if (jrb_find_int(b, sip.key) == NULL) {
-         jrb_insert_int(b, Siparis_key(sip), new_jval_v(NULL));
-         jrb_insert_str(b, Siparis_isim(sip), new_jval_v(NULL));
-         jrb_insert_str(b, Siparis_malzeme(sip), new_jval_v(NULL));
-         jrb_insert_str(b, Siparis_renk(sip), new_jval_v(NULL));
-        // (void)  jrb_insert_sip(b,Siparis_key(sip), new_jval_v(NULL));
-        // (void)  jrb_insert_sip(b,Siparis_isim(sip), new_jval_v(NULL));
-        // (void)  jrb_insert_sip(b,Siparis_malzeme(sip), new_jval_v(NULL));
-        // (void)  jrb_insert_sip(b,Siparis_renk(sip), new_jval_v(NULL));
+    if (jrb_find_int(b, sip->key) == NULL) {
+        (void) jrb_insert_int(b,sip->key , new_jval_v(NULL));// Siparis_key(*sip)
+        //  jrb_insert_str(b,sip->isim , new_jval_v(NULL));// Siparis_isim(*sip)
+        //  jrb_insert_str(b,sip->malzeme , new_jval_v(NULL));// Siparis_malzeme(*sip)
+        //  jrb_insert_str(b,sip->renk , new_jval_v(NULL));// Siparis_renk(*sip)
     }
     printf("The items was added to Tree .\n");
         //  jrb_traverse(bn, b)
@@ -86,28 +78,12 @@ int search_fun(char* inputed[])
     return 0;
   }
   
-   Siparis sip_1;
-    if (jrb_find_int(b,inputed[1]) != NULL)
-        printf("the key is : %d \n",b->key);
+    if (jrb_find_int(b,atoi(inputed[1])) != NULL)
+        printf("the key is : %d \n",jval_i(b->key));
 
 
   return 0;
 }
-      //  if(b==NULL) return error_message(); 
-      //   myis = new_inputstruct("dosya.txt");  
-      //   char* key ="1";
-      //     for(i = 0; i < myis->NF; i++){
-      //       printf("the key is : %s  \n",key);
-    // }
-    // printf("the key is : %s  != %s\n",key , myis->fields[i]);
-    //  if(jrb_find_str(b,argv[2])){
-    //       printf("find item : ");
-    //         // printf(jval_s(b->key));
-    //         printf("\n");
-    // }
-        //  jettison_inputstruct(myis);    
-    
-
 
 /* "write" Komutu dosyaya yazma funksiyonu
  **************************************/
@@ -149,10 +125,9 @@ int print_fun()
 {
   if(b==NULL) return error_message();
     // jrb_traverse(bn, b)
-    //   printf("%d ", jval_i(bn->key)); 
-    // printf(" \n ");
-    jrb_traverse(bn, b)
-      printf("%d ", jval_i(bn->key)); 
+    //   printf("%s ", jval_s(bn->key)); 
+      jrb_traverse(bn, b)
+       printf("%d ", jval_i(bn->key)); 
     printf(" \n "); 
   return 0;
 }

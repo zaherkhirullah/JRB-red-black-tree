@@ -20,23 +20,10 @@
 #include <unistd.h>
 #include <assert.h>
 
-// typedef struct Siparis{
-//   int key ;
-//   char * isim;
-//   char * malzeme;
-//   char * renk;
-// } Siparis;
-// typedef struct Siparis{
-//   char * key ;
-//   char * isim;
-//   char * malzeme;
-//   char * renk;
-// }Siparis;
-
 int add_fun(char* inputed[]);
 int search_fun(char* inputed[]);
 int print_fun();
 int write_fun(char* inputed[]);
 char** str_split(char* a_str, const char a_delim);
-// char* s_split( char string[]);
+
 #endif
