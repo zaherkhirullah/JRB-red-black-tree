@@ -12,7 +12,6 @@
 
 JRB b, bn,siparis_tree , b2;
 IS myis; 
-  Siparis *p;
 int i,  file_ptr, sz;
 
 int error_message()
@@ -42,25 +41,22 @@ int add_fun(char* inputed[])
   }
 
   IS is;
+  Siparis *p;
   int nsize, i;
 
   is = new_inputstruct("input.txt");
   if(b==NULL)  b = make_jrb();
-   p = malloc(sizeof(Siparis));
+  p = malloc(sizeof(Siparis));
    p->key = atoi(inputed[1]);
    p->isim = inputed[2];
    p->malzeme = inputed[3];
    p->renk = inputed[4];
-  //  printf("p->key = %d\n",p->key);
-  //  printf("p->isim = %s\n",p->isim);
-  //  printf("p->malzeme = %s\n",p->malzeme);
     bn = jrb_find_int(b, p->key);
       if (bn == NULL) {
         siparis_tree = make_jrb();
         jrb_insert_int(b, p->key, new_jval_v((void *) siparis_tree)); 
       } 
-      else
-      {
+      else {
         siparis_tree = (JRB) bn->val.v;
       }
       jrb_insert_str(siparis_tree, p->isim, new_jval_v((void *) p));
@@ -68,14 +64,13 @@ int add_fun(char* inputed[])
       jrb_insert_str(siparis_tree, p->renk, new_jval_v((void *) p));
 
   /* To print the people, we need to do a nested, two-level recursion */
-  jrb_traverse(bn, b) 
-  {
+
+  jrb_traverse(bn, b) {
     siparis_tree = (JRB) bn->val.v;
-    jrb_traverse(b2, siparis_tree)
-      { 
-        p = (Siparis *) b2->val.v;   
-      }
-    printf("%2d,%s,%s,%s\n", p->key, p->isim, p->malzeme, p->renk);
+    jrb_traverse(b2, siparis_tree) {
+      p = (Siparis *) b2->val.v;
+      printf("%2d,%s,%s,%-40s\n", p->key, p->isim, p->malzeme, p->renk);
+    }
   }
     printf("The items was added to Tree .\n");  
     return 0 ;
@@ -91,23 +86,11 @@ int search_fun(char* inputed[])
     printf("Usage: search|sipKey");
     return 0;
   }
-    p->key = atoi(inputed[1]);
-    if (jrb_find_int(b,p->key) != NULL)
-    {
-      jrb_traverse(bn, b) 
-        {
-          siparis_tree = (JRB) bn->val.v;
-          jrb_traverse(b2, siparis_tree)
-            {
-              p = (Siparis *) b2->val.v;
-            }
-          if( p->key == atoi(inputed[1]))
-            printf("%2d,%s,%s,%s\n", p->key, p->isim, p->malzeme, p->renk);
-        }
-    }
+  
+    if (jrb_find_int(b,atoi(inputed[1])) != NULL)
+      printf("the key is : %d \n",jval_i(b->key));
     else
-      printf("“Aranan kayıt bulunamadı.”\n");
-    
+      printf("“Aranan kayıt bulunamadı.”");
     return 0;
 }
 /* "write" Komutu dosyaya yazma funksiyonu
@@ -199,48 +182,3 @@ char** str_split(char* a_str, const char a_delim)
     }
     return result;
 }
-
-
-// int read_file_to_input(){
-//       // }
- 
-//   // while (get_line(is) >= 0) {
-//   //   if (is->NF > 1) {
-//   //     /* Creating the Siparis is just like ni_sort1.c -- please see the comments
-//   //        there for how this is done. */
-//   //     p = malloc(sizeof(Siparis));
-//   //     p->key = atoi(is->fields[is->NF-1]);
-
-//   //     nsize = strlen(is->fields[0]);
-//   //     for (i = 1; i < is->NF-1; i++) nsize += (strlen(is->fields[i])+1);
-
-//   //     p->isim = (char *) malloc(sizeof(char)*(nsize+1));
-//   //     strcpy(p->isim, is->fields[0]);
-//   //     //  p->malzeme = (char *) malloc(sizeof(char)*(nsize+1));
-//   //     // strcpy(p->malzeme, is->fields[1]);
-//   //     //  p->renk = (char *) malloc(sizeof(char)*(nsize+1));
-//   //     // strcpy(p->renk, is->fields[2]);
-
-//   //     nsize = strlen(is->fields[0]);
-//   //     for (i = 1; i < is->NF-1; i++)
-//   //      {
-//   //       p->isim[nsize] = ' ';
-//   //       strcpy(p->isim+nsize+1, is->fields[i]);
-//   //       nsize += strlen(p->isim+nsize);
-//   //     }
-//   //     /* To insert the Siparis, we first test to see if the key is in the
-//   //        tree.  If it is not, we create it with an empty red-black tree as a val. 
-//   //        In either case, we insert the isim into the second-level tree. */
-//   //     bn = jrb_find_int(b, p->key);
-//   //     if (bn == NULL) {
-//   //       siparis_tree = make_jrb();
-//   //       jrb_insert_int(b, p->key, new_jval_v((void *) siparis_tree));
-//   //     } else {
-//   //       siparis_tree = (JRB) bn->val.v;
-//   //     }
-//   //     jrb_insert_str(siparis_tree, p->isim, new_jval_v((void *) p));
-//   //     // jrb_insert_str(siparis_tree, p->malzeme, new_jval_v((void *) p));
-//   //     // jrb_insert_str(siparis_tree, p->renk, new_jval_v((void *) p));
-//   //   }
-//   // }
-// }
