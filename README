@@ -1,0 +1,57 @@
+/*********************************
+*  __ --Grup Üyeleri--__ 
+**********************************
+1_ Eyad Almansour (B141210127)
+2_ Zaher Khirullah(B151210568)
+3_ Mohammad Almahamid (B141210263)
+4_ Mumin Othman (G151210563)
+5_ Abdulrahamn hamidi (G151210551)
+*********************************/
+
+NOT : Program linux ortamında terminale "make" yazıldığında derlenmektedir. Çalıştırmak için ./OSProje yazmanız yeterlidir.
+
+NOT : Hocam sinyal işlemlerinde sıkıntı olmaması açısında 3-4 fonksiyonu hazır kullandık. Cat işlemlerinde kimi zaman sorunsuz çalışırken kimi zaman hata çıkıyor. Bu sorunları da çözemedik. Bir de komut sonlarında & koyulduğunda işlem bekletip arka planda işlem çalıştırma görevini yapamadık. Son olarak bazı hata fonksiyonlarını direk sistem fonksiyonlarından kullandığımız için sonuçlar ingilizce bastıralabiliyor. Eksik çok ama kodu olduğu kadar yazıp tamamlamak için bir çok araştırma yaptık. Birçok şey de öğrendiğimizi düşünüyoruz. İyi çalışmalar dileriz.
+
+
+Yararlanılan bazı kaynaklar :
+-https://www.gnu.org/software/libc/manual/html_node/Initializing-the-Shell.html
+-https://www.linuxprogrammingblog.com/all-about-linux-signals?page=show
+-https://www.linuxprogrammingblog.com/code-examples/sigaction
+-http://man7.org/linux/man-pages/man7/signal.7.html
+-http://codewiki.wikidot.com/c:system-calls:open
+
+
+--Bazı Fonksiyonlar--
+
+init() : Shell'i başlatmak için fonksiyondur. Burada sinyallerle alakalı işlemler yapılmıştır.
+Detaylı bilgi için : 
+-https://www.gnu.org/software/libc/manual/html_node/Initializing-the-Shell.html
+
+setenv() : C'de bir program çalıştırıldığında program yazılan kodda bazı bilgileri çağırması gerekir.
+Bu fonksiyonumuz ile gerekli yerlerde çağrılması için dosya yollarını tanımladık.
+Detaylı bilgi için : 
+-https://www.gnu.org/software/libc/manual/html_node/Environment-Variables.html
+-http://man7.org/linux/man-pages/man3/setenv.3.html
+
+prompt() : Promptu yazdırmak için gerekli fonksyiondur.
+
+fgets() : Scanf() benzeri çalışır. Kodumuzda komutlara ek parametreler sayesinde kısıt koyabilmek için bu 
+fonksiyonu kullandık.
+
+commandExecute() : Girilen komutların görevini yerine getirmesi için gerekli işlemlerin yapıldığı fonksiyondur.
+
+strcmp() : 2 parametre alır. Girilen komut ile girilmesini istediğimiz komutu karşılaştırmak için kullandığımız fonksiyondur. Eğer girilen değer istediğimiz değer ise 0 döndürür.
+
+execProgram() : Girilen komut işletilirken arkaplan işlerinin de yapılmasını sağlayan fonksiyon.
+
+dup2() : Sistem çağrısı olup bir dosya da okuma yazma işlemleri yapmak için dosyanın kopyalanmasını sağlar.
+
+close() : Açılmış dosyayı kapatır.
+
+execvp() : Bir sistem çağrısıdır. Verilen komutların sistemdeki karşılıklarını çalıştırır. Örneğin "ps" komutu verildiğinde bazı PID'leri ekrana basar.
+
+waitpid() : Bir prosesi durumunu değiştirmesi için bekleten fonksiyondur.
+
+signal() : Linuxta bazı signal işlemlerinin yapılması için gerekli fonksiyondur. Signal hakkında detaylı bilgi için : 
+-http://man7.org/linux/man-pages/man7/signal.7.html
+
