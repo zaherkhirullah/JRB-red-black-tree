@@ -11,54 +11,52 @@
 #include "prog.h"
 
 void init(){
-		// See if we are running interactively
-        GBSH_PID = getpid();
-        // The shell is interactive if STDIN is the terminal  
-        GBSH_IS_INTERACTIVE = isatty(STDIN_FILENO);  
+	// See if we are running interactively
+	GBSH_PID = getpid();
+	// The shell is interactive if STDIN is the terminal  
+	GBSH_IS_INTERACTIVE = isatty(STDIN_FILENO);  
+	if (GBSH_IS_INTERACTIVE){
+		// Loop until we are in the foreground
+		while (tcgetpgrp(STDIN_FILENO) != (GBSH_PGID = getpgrp()))
+				kill(GBSH_PID, SIGTTIN);             
+				
+		// Set the signal handlers for SIGCHILD and SIGINT
+		act_child.sa_handler = Cocuk;
+		act_int.sa_handler = signal_int;					
+		
+		sigaction(SIGCHLD, &act_child, 0);
+		sigaction(SIGINT, &act_int, 0);
+		
+		// Put ourselves in our own process group
+		setpgid(GBSH_PID, GBSH_PID); // we make the shell process the new process group leader
+		GBSH_PGID = getpgrp();
+		if (GBSH_PID != GBSH_PGID) {
+			printf("Error, the shell is not process group leader");
+			exit(EXIT_FAILURE);
+		}
+		// Grab control of the terminal
+		tcsetpgrp(STDIN_FILENO, GBSH_PGID);  
+		
+		// Save default terminal attributes for shell
+		tcgetattr(STDIN_FILENO, &GBSH_TMODES);
 
-		if (GBSH_IS_INTERACTIVE) {
-			// Loop until we are in the foreground
-			while (tcgetpgrp(STDIN_FILENO) != (GBSH_PGID = getpgrp()))
-					kill(GBSH_PID, SIGTTIN);             
-	              
-	        // Set the signal handlers for SIGCHILD and SIGINT
-			act_child.sa_handler = Cocuk;
-			act_int.sa_handler = signal_int;					
-			
-			sigaction(SIGCHLD, &act_child, 0);
-			sigaction(SIGINT, &act_int, 0);
-			
-			// Put ourselves in our own process group
-			setpgid(GBSH_PID, GBSH_PID); // we make the shell process the new process group leader
-			GBSH_PGID = getpgrp();
-			if (GBSH_PID != GBSH_PGID) {
-					printf("Error, the shell is not process group leader");
-					exit(EXIT_FAILURE);
-			}
-			// Grab control of the terminal
-			tcsetpgrp(STDIN_FILENO, GBSH_PGID);  
-			
-			// Save default terminal attributes for shell
-			tcgetattr(STDIN_FILENO, &GBSH_TMODES);
-
-			// Get the current directory that will be used in different methods
-			currentDirectory = (char*) calloc(1024, sizeof(char));
-        } else {
-                printf("Could not make the shell interactive.\n");
-                exit(EXIT_FAILURE);
-        }
+		// Get the current directory that will be used in different methods
+		currentDirectory = (char*) calloc(1024, sizeof(char));
+	} 
+	else
+	{
+		printf("Could not make the shell interactive.\n");
+		exit(EXIT_FAILURE);
+	}
 }
-void signal_int(int p)
-{
+void signal_int(int p){
 	if (kill(pid,SIGTERM) == 0)
 	 {
 		printf("\nProcess %d received a sigint signal\n",pid);
 		NoPropmt = 1;			
 	 }
 	else
-	 {
 		printf("\n");
-	 }
 }
 void Cocuk(int p)
 {
@@ -80,30 +78,33 @@ int commandExecute(char * command[],char* inputed[]){
 	char *command_args[256];
 	while ( command[j] != NULL){ // Bu döngü ile özel karakterli komutların bulunduğu durumlarda (">", "<", "&") kolaylık 
                                  // olması için yeni bir dizi tanımlıyoruz.
-		if ( (strcmp(command[j],">") == 0) ||
-			 (strcmp(command[j],"<") == 0) ||
-			 (strcmp(command[j],"&") == 0))
-		{
-			break;
-		}
+		if ((strcmp(command[j],">") == 0) ||(strcmp(command[j],"<") == 0) ||
+			 (strcmp(command[j],"&") == 0)) break;
 		command_args[j] = command[j];
 		j++;
 	}
-	
  	if(strcmp(command[0],"add") == 0 ) 	 
 		add_fun(inputed);
+		if(strcmp(command[0],"pro") == 0) 	 
+		pro_fun(inputed);
     if(strcmp(command[0],"search") == 0 ) 
 		search_fun(inputed);
     if(strcmp(command[0],"write") == 0 ) 
-	write_fun(inputed);
-   if(strcmp(command[0],"print") == 0){
+		write_fun(inputed);
+    if(strcmp(command[0],"print") == 0){
 		if(inputed[1]!=NULL)
 			printf("Usage: print\n");
 		else
 		print_fun();
 		}
+   if(strcmp(command[0],"temizle") == 0)
+			temizleme(inputed);
 	if(inputed[1]!=NULL)return 0; // eğer komut uygun değilse dongu tekrar basa dondur 
-    if(strcmp(command[0],"quit") == 0) exit(0);
+    if(strcmp(command[0],"quit") == 0) 
+	{
+		temizleme(inputed);
+		exit(0);
+	}
 	 //Bulunduğumuz dosyadan baska bir dosyay gecmek için kullanılan komut	
     if(strcmp(command[0],"cd") == 0)
 		changeDirectory(command);
@@ -114,8 +115,8 @@ int commandExecute(char * command[],char* inputed[]){
 			}
 			 // Cat komutu için gerekli işlemlerin yapılmasını saglayan koşul.             			
             else if (strcmp(command[i],"<") == 0){
-								if (command[i+1] == NULL ){
-					printf(">> lutfen < sonra ekrana yazdirmak istediginiz dosya adi yaziniz\n");
+				if (command[i+1] == NULL ){
+					printf("“lutfen < sonra ekrana yazdirmak istediginiz dosya adi yaziniz”\n");
 					return -1;
 				}
 				// Cat komutunda dosya giriş-çıkış işlemleri için parametre yolluyoruz.
@@ -125,7 +126,7 @@ int commandExecute(char * command[],char* inputed[]){
 			// Cat komutu ile çıkış yönlendirme yapmak için gerekli koşul.
 			else if (strcmp(command[i],">") == 0){ 
 				if (command[i+1] == NULL){
-					printf("Komut Yeterli Degil !\n");
+					printf("“Komut Yeterli Degil !”\n");
 					return -1;
 				}
 				IOProcess(command_args,NULL,command[i+1],0); // Cat komutunda dosya giriş-çıkış işlemleri için parametre yolluyoruz.
@@ -206,7 +207,7 @@ void prompt(){
     gethostname(hostName, sizeof(hostName));
     // printf("%s@%s:%s$", getenv("USER"), hostName,currentDirectory); 
 	 /* Burada normal UNIX'teki terminaller gibi bir promp yapmaya çalıştık.*/	
-    printf("> ");
+    printf("» ");
 	//USER ile kullanıcı adını, hostname ile de bilgisayarın adını ekrana basıyoruz.
     fflush(stdout);
 }

@@ -674,14 +674,7 @@ JRB jrb_insert_int(JRB tree, int ikey, Jval val)
   k.i = ikey;
   return jrb_insert_b(jrb_find_gte_int(tree, ikey, &fnd), k, val);
 }
-JRB jrb_insert_sip(JRB tree, Siparis ikey, Jval val)
-{
-  Jval k;
-  Siparis fnd;
 
-  k.i = ikey.Key;
-  return jrb_insert_b(jrb_find_gte_int(tree, ikey.Key, &fnd), k, val);
-}
 
 JRB jrb_insert_dbl(JRB tree, double dkey, Jval val)
 {

@@ -38,7 +38,6 @@ Fax: 865-974-4404
 #define	_JRB_H_
 
 #include "jval.h"
-#include "Siparis.h"
 
 /* Main jrb_node.  You only ever use the fields
    flink
@@ -46,7 +45,6 @@ Fax: 865-974-4404
    k.key or k.ikey
    v.val
 */
-
 
 typedef struct jrb_node {
   unsigned char red;
@@ -72,7 +70,6 @@ extern JRB jrb_insert_str(JRB tree, char *key, Jval val);
 extern JRB jrb_insert_int(JRB tree, int ikey, Jval val);
 extern JRB jrb_insert_dbl(JRB tree, double dkey, Jval val);
 extern JRB jrb_insert_gen(JRB tree, Jval key, Jval val, int (*func)(Jval,Jval));
-extern JRB jrb_insert_sip(JRB tree, Siparis ikey, Jval val);
 
 /* returns an external node in t whose value is equal k. Returns NULL if
    there is no such node in the tree */

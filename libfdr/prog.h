@@ -21,9 +21,10 @@
 #include <assert.h>
 
 int add_fun(char* inputed[]);
+int pro_fun(char* inputed[]);
 int search_fun(char* inputed[]);
 int print_fun();
 int write_fun(char* inputed[]);
+int temizleme(char* inputed[]);
 char** str_split(char* a_str, const char a_delim);
-
 #endif

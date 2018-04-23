@@ -8,21 +8,37 @@
 5_ Abdulrahamn hamidi (G151210551)
 *********************************/
 
-NOT : Program linux ortamında terminale "make" yazıldığında derlenmektedir. Çalıştırmak için ./OSProje yazmanız yeterlidir.
+NOT : Program linux ortamında terminale "make" yazıldığında derlenmektedir. 
+Çalıştırmak için ./test yazmanız yeterlidir.
 
-NOT : Hocam sinyal işlemlerinde sıkıntı olmaması açısında 3-4 fonksiyonu hazır kullandık. Cat işlemlerinde kimi zaman sorunsuz çalışırken kimi zaman hata çıkıyor. Bu sorunları da çözemedik. Bir de komut sonlarında & koyulduğunda işlem bekletip arka planda işlem çalıştırma görevini yapamadık. Son olarak bazı hata fonksiyonlarını direk sistem fonksiyonlarından kullandığımız için sonuçlar ingilizce bastıralabiliyor. Eksik çok ama kodu olduğu kadar yazıp tamamlamak için bir çok araştırma yaptık. Birçok şey de öğrendiğimizi düşünüyoruz. İyi çalışmalar dileriz.
+Bu proje ( add , search , write , print , quit) komutlari çalıştıran bir program 
 
+1) add komutu (JRB) red black tree 'ye elemanlar eklemek için kullanılan birkomut
+Çalıstırmak için://  Usage: add|siparisKey|siparisIsim|siparisMalzeme|siparisRenk
+    add|siparisKey|siparisIsim|siparisMalzeme|siparisRenk
 
-Yararlanılan bazı kaynaklar :
--https://www.gnu.org/software/libc/manual/html_node/Initializing-the-Shell.html
--https://www.linuxprogrammingblog.com/all-about-linux-signals?page=show
--https://www.linuxprogrammingblog.com/code-examples/sigaction
--http://man7.org/linux/man-pages/man7/signal.7.html
--http://codewiki.wikidot.com/c:system-calls:open
+2) search komutu (JRB)'de bir eleman araştirmak için kullanılan birkomut
+Çalıstırmak için:   //  Usage:  search|siparisKey
+    search|siparisKey
 
+3) print komutu (JRB)'deki tüm elemanlar yazdırmak için kullanılan birkomut
+Çalıstırmak için:  //  Usage: print
+    print
 
---Bazı Fonksiyonlar--
+4) write komutu (JRB)'deki tüm elemanlar bir dosyada yazdırmak için kullanılan bir       komut.
+Çalıstırmak için:  //  Usage: write|dosya_adi
+  write|dosya_adi
 
+5) quit komutu program kapatmak içiin kullanilan bir komut
+
+-- asıl Fonksiyonlar -- 
+» pro_fun()  // ”pro < dosya_ismi” komutla dosyada okutabilmek ve add komutu çalıştırmak için
+» add_fun()  // ”add|key|isim|malzeme|renk”  komutla çalışan fonksiyon  
+» search_fun() / “search|key”  komutla çalışan fonksiyon
+» write_fun()  // “write|dosya” komutla çalışan fonksiyon
+» print_fun()  // “print” komutla çalışan fonksiyon
+
+--Bazı Fonksiyonlar-- shell ortami hazırlamak için 
 init() : Shell'i başlatmak için fonksiyondur. Burada sinyallerle alakalı işlemler yapılmıştır.
 Detaylı bilgi için : 
 -https://www.gnu.org/software/libc/manual/html_node/Initializing-the-Shell.html
@@ -55,3 +71,12 @@ waitpid() : Bir prosesi durumunu değiştirmesi için bekleten fonksiyondur.
 signal() : Linuxta bazı signal işlemlerinin yapılması için gerekli fonksiyondur. Signal hakkında detaylı bilgi için : 
 -http://man7.org/linux/man-pages/man7/signal.7.html
 
+
+
+
+Yararlanılan bazı kaynaklar :
+-https://www.gnu.org/software/libc/manual/html_node/Initializing-the-Shell.html
+-https://www.linuxprogrammingblog.com/all-about-linux-signals?page=show
+-https://www.linuxprogrammingblog.com/code-examples/sigaction
+-http://man7.org/linux/man-pages/man7/signal.7.html
+-http://codewiki.wikidot.com/c:system-calls:open

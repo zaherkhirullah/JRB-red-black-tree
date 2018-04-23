@@ -18,3 +18,6 @@ add|4|iPhone|Wooden|Red
 add|0|iPhone|Silicon|Rose Gold
 add|16|Ball|Plastic|Green
 add|19|Car|Metal|Black
+
+search|4
+write|dosya.txt
