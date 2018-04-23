@@ -1,8 +1,8 @@
 /*********************************
 *  __ --Grup Üyeleri--__ 
 **********************************
-1_ Eyad Almansour (B141210127)
-2_ Zaher Khirullah(B151210568)
+1_ Zaher Khirullah(B151210568)
+2_ Eyad Almansour (B141210127)
 3_ Mohammad Almahamid (B141210263)
 4_ Mumin Othman (G151210563)
 5_ Abdulrahamn hamidi (G151210551)
@@ -85,7 +85,7 @@ int commandExecute(char * command[],char* inputed[]){
 	}
  	if(strcmp(command[0],"add") == 0 ) 	 
 		add_fun(inputed);
-		if(strcmp(command[0],"pro") == 0) 	 
+	if(strcmp(command[0],"pro") == 0) 	 
 		pro_fun(inputed);
     if(strcmp(command[0],"search") == 0 ) 
 		search_fun(inputed);
@@ -96,8 +96,8 @@ int commandExecute(char * command[],char* inputed[]){
 			printf("Usage: print\n");
 		else
 		print_fun();
-		}
-   if(strcmp(command[0],"temizle") == 0)
+	}
+    if(strcmp(command[0],"temizle") == 0)
 			temizleme(inputed);
 	if(inputed[1]!=NULL)return 0; // eğer komut uygun değilse dongu tekrar basa dondur 
     if(strcmp(command[0],"quit") == 0) 
@@ -108,7 +108,8 @@ int commandExecute(char * command[],char* inputed[]){
 	 //Bulunduğumuz dosyadan baska bir dosyay gecmek için kullanılan komut	
     if(strcmp(command[0],"cd") == 0)
 		changeDirectory(command);
-    else{
+    else
+	{
 		while (command[i] != NULL && background == 0){
             if (strcmp(command[i],"&") == 0){
 				background = 1;
@@ -243,16 +244,14 @@ int main(){
          // line : girilen komut , MAXLINE : komutun max uzunluğu, stdin : C'de IO için parametre.
 		fgets(line, MAX_COMMAND_LINE, stdin);
 	inputed_command = str_split(line, '|');
-	
-	if(inputed_command){
-		tokens[0] = *inputed_command;	
-		// free(*inputed_command);
+	if(inputed_command)
+	{
+		tokens[0] = *inputed_command;
 	}
 	else
 	inputed_command=NULL;
 	 // Kullanıcı prompta bir şey girmezse döngü başa döner.
-	if((tokens[0] = strtok(line," \n\t")) == NULL) 
-		continue;
+	if((tokens[0] = strtok(line," \n\t")) == NULL) continue;
 	tokenNumber = 1;
 	while((tokens[tokenNumber] = strtok(NULL, " \n\t")) != NULL) 
 		tokenNumber++;

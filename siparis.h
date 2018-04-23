@@ -1,3 +1,12 @@
+/*********************************
+*  __ --Grup Üyeleri--__ 
+**********************************
+1_ Zaher Khirullah(B151210568)
+2_ Eyad Almansour (B141210127)
+3_ Mohammad Almahamid (B141210263)
+4_ Mumin Othman (G151210563)
+5_ Abdulrahamn hamidi (G151210551)
+*********************************/
 #ifndef	_SIPARIS_H_
 #define	_SIPARIS_H_
 

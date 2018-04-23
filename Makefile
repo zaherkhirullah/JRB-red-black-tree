@@ -1,8 +1,8 @@
 ###################################
 ### 	--GRUP ELEMANLARI--      ## 
 ###################################
-#_1_ Eysd Almansour (B141210127)
-#_2_ Zaher Khirullah(B151210568)
+#_1_ Zaher Khirullah(B151210568)
+#_2_ Eysd Almansour (B141210127)
 #_3_ Mohammad Almahamid (B141210263)
 #_4_ Mumin Othman (G151210563)
 #_5_ Abdulrahamn hamidi (G151210551)
@@ -11,9 +11,9 @@
 INC = ./libfdr
 LIB = ./libfdr 
 CC  = gcc
-SRC = prog.c  shell.c Siparis.c
+SRC = prog.c  shell.c siparis.c
 CFLAGS  = -Wall -g
-OBJ = shell.o  prog.o Siparis.o
+OBJ = shell.o  prog.o siparis.o
 
 EX = clean shell
 all: $(EX)

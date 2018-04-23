@@ -1,14 +1,14 @@
 /*********************************
 *  __ --Grup Üyeleri--__ 
 **********************************
-1_ Eyad Almansour (B141210127)
-2_ Zaher Khirullah(B151210568)
+1_ Zaher Khirullah(B151210568)
+2_ Eyad Almansour (B141210127)
 3_ Mohammad Almahamid (B141210263)
 4_ Mumin Othman (G151210563)
 5_ Abdulrahamn hamidi (G151210551)
 *********************************/
 #include "prog.h"
-#include "Siparis.h"
+#include "siparis.h"
 
 JRB b, bn,siparis_tree , b2;
 IS myis; 
@@ -30,7 +30,7 @@ int add_fun(char* inputed[])
       cnt++;
   }
   // biçim uygun bulmak için şartlar
-  if(inputed[1]==NULL|| atoi(inputed[1]) < 0 ||inputed[5] || cnt!=4){
+  if(inputed[1]==NULL ||atoi(inputed[1]) <= 0||inputed[5] || cnt!=4){
     printf("\t“Biçim uygun değil.”\n");
     printf("\tUsage: add|sipKey|sipAd|sipMalezeme|sipRenk\n");
     if(inputed[1]!=NULL && atoi(inputed[1]) == 0) //if  key it isn't number  (integer)
@@ -109,15 +109,15 @@ int write_fun(char* inputed[])
     siparis_tree = (JRB) bn->val.v;
     jrb_traverse(b2, siparis_tree)
        sip = (Siparis *) b2->val.v;      
-    fprintf(fp,"%d,%s,%s,%s",sip->key,sip->isim,sip->malzeme,sip->renk);      
-  }  
-   //close file
+    fprintf(fp,"%d, %s, %s, %s",sip->key,sip->isim,sip->malzeme,sip->renk);      
+  }
+  //close file
     if(fclose(fp)<0){
         perror(FileName);
     }
-    //  if(close(file_ptr)<0){
-    //     perror(FileName);
-    // }
+  //  if(close(file_ptr)<0){
+  //     perror(FileName);
+  // }
     printf("Tüm agaçtaki elemanlar %s içerisinde yazdırıldı. \n",FileName);
    return 0;
 }
@@ -139,7 +139,7 @@ int print_fun()
 int temizleme(char* inputed[])
 {
   if(inputed)
-    free(inputed);
+    free(*inputed);
   if(sip)
     free(sip);
   if(b){
@@ -153,18 +153,37 @@ int temizleme(char* inputed[])
     jrb_free_tree(siparis_tree);  
       
   }
-
   printf("“Her şey temizlendi.”\n");
  return 0;
 }
-int pro_fun(char* inputed[]){
-
-  // while (get_line(is) >= 0) {
+int pro_fun(char *inputed[])
+{
     
-  // }
+    if(inputed[1]==NULL)
+    {
+      printf("Usage: pro|input.txt\n");
+      return 0;
+    }
+    char* fileIsmi =inputed[1];
+    char** txt_inputed;
+    char* txt_line ;
+    myis = new_inputstruct("input.txt");
+    if(myis){
+      while(get_line(myis) != EOF){  
+        for(i = 0; i < myis->NF; i++){
+          txt_line = myis->fields[i];
+        txt_inputed = str_split(txt_line,'|');
+        add_fun(txt_inputed);
+        free(*txt_inputed);         
+        }
+      }
+    jettison_inputstruct(myis);    
+     printf("elemanlar başarila agaca eklendi. \n");      
+    }
+    else
+    printf("HATA: %s dosya bulunmadi \n",inputed[1]);
   return 0;
 }
-
 
 char** str_split(char* a_str, const char a_delim)
 {

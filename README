@@ -1,8 +1,8 @@
 /*********************************
 *  __ --Grup Üyeleri--__ 
 **********************************
-1_ Eyad Almansour (B141210127)
-2_ Zaher Khirullah(B151210568)
+1_ Zaher Khirullah(B151210568)
+2_ Eyad Almansour (B141210127)
 3_ Mohammad Almahamid (B141210263)
 4_ Mumin Othman (G151210563)
 5_ Abdulrahamn hamidi (G151210551)
@@ -11,7 +11,7 @@
 NOT : Program linux ortamında terminale "make" yazıldığında derlenmektedir. 
 Çalıştırmak için ./test yazmanız yeterlidir.
 
-Bu proje ( add , search , write , print , quit) komutlari çalıştıran bir program 
+Bu proje ( add , search , write , print , quit,temizle) komutlari çalıştıran bir program 
 
 1) add komutu (JRB) red black tree 'ye elemanlar eklemek için kullanılan birkomut
 Çalıstırmak için://  Usage: add|siparisKey|siparisIsim|siparisMalzeme|siparisRenk
@@ -30,7 +30,7 @@ Bu proje ( add , search , write , print , quit) komutlari çalıştıran bir pro
   write|dosya_adi
 
 5) quit komutu program kapatmak içiin kullanilan bir komut
-
+6) temizle komutu programin tanimlandiği bilgileri  hafizadan silme işi (free işleri)
 -- asıl Fonksiyonlar -- 
 » pro_fun()  // ”pro < dosya_ismi” komutla dosyada okutabilmek ve add komutu çalıştırmak için
 » add_fun()  // ”add|key|isim|malzeme|renk”  komutla çalışan fonksiyon  

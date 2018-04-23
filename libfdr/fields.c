@@ -80,7 +80,6 @@ static IS make_inputstruct(char *filename, char *key)
 }
 
   
-
 IS new_inputstruct(char *filename)   /* use NULL for stdin.  Calls malloc */
 {
   return make_inputstruct(filename, "f");
