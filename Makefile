@@ -1,15 +1,10 @@
 ###################################
-### 	--GRUP ELEMANLARI--      ## 
 ###################################
-#_1_ Zaher Khirullah(B151210568)
-#_2_ Eysd Almansour (B141210127)
-#_3_ Mohammad Almahamid (B141210263)
-#_4_ Mumin Othman (G151210563)
-#_5_ Abdulrahamn hamidi (G151210551)
+# Zaher Khirullah
 ####################################
 
 INC = ./libfdr
-LIB = ./libfdr 
+LIB = ./libfdr
 CC  = gcc
 SRC = prog.c  shell.c siparis.c
 CFLAGS  = -Wall -g
@@ -25,8 +20,8 @@ shell: $(SRC)
 .SUFFIXES: .c .o
 %.o: %.c
 	$(CC) $(CFLAGS) -c $<
-clean: 
+clean:
 	rm -f $(EX) *.o
 	@echo " “Clean completed” "
 
-# $(CC) $(CFLAGS) -o shell $(OBJ) 
+# $(CC) $(CFLAGS) -o shell $(OBJ)
